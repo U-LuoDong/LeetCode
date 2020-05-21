@@ -1,0 +1,90 @@
+第一题 9 回文字符串
+解题思路：
+1.采用双指针，分别从两头开始遍历，若不满足回文条件直接返回false；
+代码如下：
+class Solution {
+    public boolean isPalindrome(int x) {
+        
+        //双指针
+        String s = String.valueOf(x);
+        int left = 0;
+        int right = s.length()-1;
+        while(right >= left){
+            if(s.charAt(left) != s.charAt(right)){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
+第二题 最长回文字符串 5
+解题思路：
+1.采用双指针，记录下最长回文串的起始位置和结束位置，遇到更长的就更新。
+2.最后按记录的位置截取字符串返回即可。
+代码如下：
+class Solution {
+    public String longestPalindrome(String s) {
+        if (s == null || s.length()<=0) {
+					return "";
+				}
+		 		int len = 1;
+		 		int left = 0;
+		 		int right = 0;
+		 		int MaxLen = 0;
+		 		int maxStart = 0;
+		 		for(int i=0;i<s.length();i++){
+		 			left = i - 1;
+		 			right = i + 1;
+		 			while(left >= 0 && s.charAt(i) == s.charAt(left)){
+		 				len ++;
+		 				left --;
+		 			}
+		 			while(right < s.length() && s.charAt(i) == s.charAt(right)){
+		 				len ++;
+		 				right ++;
+		 			}
+		 			while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)){
+		 				len += 2;
+		 				left--;
+		 				right++;
+		 			}
+		 			if (len > MaxLen) {
+						MaxLen = len;
+						maxStart = left;
+					}
+		 			len = 1;
+		 		}
+		 		return s.substring(maxStart + 1, maxStart + MaxLen + 1);
+    }
+}
+第三题 二叉树中的最大路径和 124
+解题思路：
+1.采用后序遍历，先求出左右子树的最大值，再加上根节点判断最大值
+代码如下：
+class Solution {
+    private int max = Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+       if(root == null) return 0;
+       maxSum(root);
+       return max;
+}
+    private int maxSum(TreeNode root){
+        if(root == null) return 0;
+        int leftMax = Math.max(maxSum(root.left),0);
+        int rightMax = Math.max(maxSum(root.right),0);
+        max = Math.max(max,leftMax+rightMax+root.val);
+        return root.val + Math.max(leftMax,rightMax); 
+    }
+}
+今日总结：
+1。完成了四道算法题
+2.解决了ider的maven问题
+3.看完了文件上传项目的视频，并搭建好环境。
+明日目标：
+阅读计算机安全相关知识点，为晚上的笔试做一些准备；
+开始答多线程的题
+完成三道算法题
+（完成文件上传项目）
+（完成一个课题作业）
